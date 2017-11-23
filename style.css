@@ -39,8 +39,6 @@ h1 {
 .container {
     display: block;
     position: relative;
-    float: left;
-    width: 10%;
     padding-left: 35px;
     margin-bottom: 35px;
     cursor: pointer;
@@ -102,6 +100,11 @@ h1 {
     background: white;
 }
 
+.optionsContainer {
+    float: left;
+    width: 15%;
+}
+
 .chartContainer {
     float: right;
     width: 75%;
@@ -127,7 +130,6 @@ p {
 
 .slider {
     -webkit-appearance: none;
-    width: 20%;
     height: 15px;
     border-radius: 5px;
     background: #FAFAFA;

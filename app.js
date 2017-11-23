@@ -1,22 +1,16 @@
-﻿
-/*var colour = d3.scaleOrdinal()
-    .range(["#FF8A80", "#FF5252", "#FFCCBC", "#FF80AB", "#FF4081", "#F50057", "#EA80FC", "#E040FB",
-        "#D500F9", "#B388FF", "#7C4DFF", "#651FFF", "#8C9EFF", "#536DFE", "#3D5AFE", "#82B1FF",
-        "#448AFF", "#2979FF", "#80D8FF", "#40C4FF", "#00B0FF", "#84FFFF", "#18FFFF", "#00E5FF",
-        "#A7FFEB", "#64FFDA", "#1DE9B6", "#B9F6CA", "#69F0AE", "#00E676", "#CCFF90", "#B2FF59",
-        "#76FF03", "#FFE57F", "#FFD740", "#FFC400", "#FFD180", "#FF9E80", "#FF6E40", "#FF3D00",
-        "#FFAB40", "#FF9100", "#FFFF8D", "#FFFF00", "#FFEA00", "#F4FF81", "#EEFF41", "#C6FF00",
-        "#CCFF90", "#B2FF59", "#76FF03"]);
-        */
-
+﻿/*
 var colour = d3.scaleOrdinal()
     .range(["#FFD180", "#FFD180", "#FFCCBC", "#FFCCBC", "#FFCCBC", "#FF9E80", "#FF9E80", "#FF9E80",
         "#FF8A80", "#FF8A80", "#FF8A80", "#FF80AB", "#FF80AB", "#FF80AB", "#EA80FC", "#EA80FC",
         "#B388FF", "#B388FF", "#B388FF", "#8C9EFF", "#8C9EFF", "#8C9EFF", "#82B1FF", "#82B1FF",
-        "#82B1FF", "#80D8FF", "#80D8FF", "#80D8FF", "#84FFFF", "#84FFFF", "#84FFFF", "#A7FFEB",
-        "#A7FFEB", "#B9F6CA", "#B9F6CA", "#B9F6CA", "#FFFF8D", "#FFFF8D", "#FFE57F", "#FFE57F",
+        "#82B1FF", "#80D8FF", "#80D8FF", "#80D8FF", "#00E5FF", "#00E5FF", "#00E5FF", "#1DE9B6",
+        "#1DE9B6", "#B9F6CA", "#B9F6CA", "#B9F6CA", "#FFFF8D", "#FFFF8D", "#FFE57F", "#FFE57F",
         "#FFE57F"]);
+        */
 
+var colour = d3.scaleOrdinal()
+    .range(["#FF8A80", "#82B1FF", "#69F0AE", "#FFD180"])
+            //WEST     //MIDWEST  //NE       //SOUTH   
 
 var width = screen.width;
 var height = screen.height;
@@ -40,72 +34,110 @@ var sim = d3.forceSimulation()
 var slider = document.getElementById("yearRange");
 var year = document.getElementById("year");
 
-year.innerHTML = slider.value; 
-slider.oninput = function () {
-    year.innerHTML = this.value;
-}
+year.innerHTML = slider.value;
 
 
 var svg = d3.select("#chart")
     .append("svg")
     .attr("width", width)
-    .attr("height", height)
-    .attr("class", "bubble");
+    .attr("height", height);
 
 
 d3.csv("gender.csv", function (error, data) {
-
     var gData = data;
+    var dataString = "MALE11";
 
-    var bubbles = svg.selectAll("bubbles")
+    var bubbles = svg.selectAll("g")
      .data(gData)
      .enter()
-       .append("circle")
-       .attr("r", function (d) {
-           return +d["MALE11"] * 1.3;
-       })
-       .style("fill", function (d) { return colour(d["LocationAbbr"]); });
+     .append("g")
+     .attr("class", "bubble");
 
+    bubbles.append("circle")
+       .attr("r", function (d) {
+           return +d[dataString] * 1.3;
+       })
+       .style("fill", function (d) {
+           if (d["LocationAbbr"] == "US")
+               return "#EA80FC";
+
+           return colour(d["LocationAbbr"]);
+       });
+
+    bubbles.append("text")
+        .style("fill", "#FAFAFA")
+        .style("font-family", "'Raleway', sans-serif")
+        .style("font-size", "11")
+        .text(function (d) {
+            return d["LocationAbbr"];
+        })
 
     sim
         .nodes(gData)
         .force("collisions", d3.forceCollide(function (d) {
-            return (+d["MALE11"] + 10)
+            return (+d[dataString] + 11)
         }))
         .on('tick', updatePosition)
 
-    radio1.addEventListener("click", updateData);
-    radio2.addEventListener("click", updateData);
+    radio1.addEventListener("click", radioUpdateString);
+    radio2.addEventListener("click", radioUpdateString);
     radio3.style.display = "none";
     radio4.style.display = "none";
+    slider.oninput = function () {
+        year.innerHTML = this.value;
+        sliderUpdateString();
+    }
     
 
     function updatePosition() {
-        bubbles
+        bubbles.selectAll("circle")
           .attr("cx", function (d) {
               return d.x
           })
           .attr("cy", function (d) {
               return d.y
           })
+
+        bubbles.selectAll("text")
+            .attr("dx", function (d) {
+                return d.x - 12;
+            })
+            .attr("dy", function (d) {
+                return d.y + 5;
+            })
     }
 
-    function updateData() {
-        var newData;
-        if (this.innerText == "Male")
-            newData = "MALE11";
-        else if(this.innerText == "Female")
-            newData = "FEMALE11";
+    function sliderUpdateString() {
+        var currYear = year.innerHTML.slice(-2); //extract last 2 digits of year
 
-        bubbles
+        dataString = dataString.slice(0, -2);
+        dataString += currYear;
+        
+        updateBubbles();
+    }
+
+    function radioUpdateString() {
+        var currYear = year.innerHTML.slice(-2); //extract last 2 digits of year
+
+        if (this.innerText == "Male")
+            dataString = "MALE" + currYear;
+        else if (this.innerText == "Female")
+            dataString = "FEMALE" + currYear;
+
+        updateBubbles();
+    }
+
+    function updateBubbles() {
+        
+        bubbles.selectAll("circle")
             .transition()
             .duration(700)
             .attr("r", function (d) {
-                return +d[newData] * 1.3;
+                return +d[dataString] * 1.3;
             });
         sim
         .force("collisions", d3.forceCollide(function (d) {
-            return (+d[newData] + 10)
+            return (+d[dataString] + 11)
         }))
         .alpha(0.01)
         .restart();
