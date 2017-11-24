@@ -40,7 +40,7 @@ h1 {
     display: block;
     position: relative;
     padding-left: 35px;
-    margin-bottom: 35px;
+    margin-bottom: 15px;
     cursor: pointer;
     color: #FAFAFA;
     font-family: 'Raleway', sans-serif;
@@ -103,11 +103,12 @@ h1 {
 .optionsContainer {
     float: left;
     width: 15%;
+    padding-top: 19%;
 }
 
 .chartContainer {
     float: right;
-    width: 75%;
+    width: 85%;
 }
 
 

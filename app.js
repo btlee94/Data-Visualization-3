@@ -8,11 +8,9 @@ var colour = d3.scaleOrdinal()
         "#FFE57F"]);
         */
 
-var colour = d3.scaleOrdinal()
-    .range(["#FF8A80", "#82B1FF", "#69F0AE", "#FFD180"])
-            //WEST     //MIDWEST  //NE       //SOUTH   
+var colour = ["#FF8A80", "#82B1FF", "#69F0AE", "#FFD180", "#EA80FC"];
 
-var width = screen.width;
+var width = screen.width * 0.70;
 var height = screen.height;
 
 
@@ -47,7 +45,7 @@ d3.csv("gender.csv", function (error, data) {
     var gData = data;
     var dataString = "MALE11";
 
-    var bubbles = svg.selectAll("g")
+    var bubbles = svg.selectAll("bubbles")
      .data(gData)
      .enter()
      .append("g")
@@ -58,16 +56,25 @@ d3.csv("gender.csv", function (error, data) {
            return +d[dataString] * 1.3;
        })
        .style("fill", function (d) {
-           if (d["LocationAbbr"] == "US")
-               return "#EA80FC";
+           if (d["Region"] == "WEST")
+               return colour[0];
+           if (d["Region"] == "MIDWEST")
+               return colour[1];
+           if (d["Region"] == "NE")
+               return colour[2];
+           if (d["Region"] == "SOUTH")
+               return colour[3];
+           else
+               return colour[4];
 
-           return colour(d["LocationAbbr"]);
-       });
+       })
+       .style("cursor", "pointer");
 
     bubbles.append("text")
         .style("fill", "#FAFAFA")
         .style("font-family", "'Raleway', sans-serif")
-        .style("font-size", "11")
+        .style("font-size", "15")
+        .style("cursor", "pointer")
         .text(function (d) {
             return d["LocationAbbr"];
         })
@@ -143,4 +150,44 @@ d3.csv("gender.csv", function (error, data) {
         .restart();
     }
 
+
+    var legend = svg.selectAll(".legend")
+            .data(colour)
+            .enter()
+            .append("g")
+            .attr("class", "legend")
+            .attr("transform", function (d, i) {
+                var LegendHeight = 13 + 20;
+                var horizontal = (width * 0.9);
+                var vertical = i * LegendHeight + (height * 0.35);
+                return "translate(" + horizontal + "," + vertical + ")";
+            });
+
+        legend.append("circle")
+            .attr("r", 13)
+       .style("fill", function (d, i) {
+           return colour[i];
+       });
+
+        legend.append("text")
+            .attr("x", 20)
+            .attr("y", 5)
+            .style("fill", "#FAFAFA")
+            .style("font-family", "'Raleway', sans-serif")
+            .style("font-size", "15")
+            .text(function (d, i) {
+                if (i == 0)
+                    return "West";
+                if (i == 1)
+                    return "Midwest";
+                if (i == 2)
+                    return "Northeast";
+                if (i == 3)
+                    return "South";
+                else
+                    return "National";
+            });
+    
+
 })
+
