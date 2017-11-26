@@ -35,12 +35,31 @@ h1 {
 }
 
 
-/* Customize the label (the container) */
-.container {
+.chartContainer {
+    float: right;
+    width: 85%;
+}
+
+.optionsContainer {
+    float: left;
+    width: 15%;
+    padding-top: 19%;
+}
+
+.leftContainer {
     display: block;
     position: relative;
     padding-left: 35px;
     margin-bottom: 15px;
+}
+
+.topContainer {
+    display: inline-block;
+    margin-left: 30%;
+}
+
+/* Customize the label (the container) */
+.radioContainer {
     cursor: pointer;
     color: #FAFAFA;
     font-family: 'Raleway', sans-serif;
@@ -52,7 +71,7 @@ h1 {
 }
 
 /* Hide the browser's default radio button */
-.container input {
+.radioContainer input {
     position: absolute;
     opacity: 0;
 }
@@ -69,12 +88,12 @@ h1 {
 }
 
 /* On mouse-over, add a grey background color */
-.container:hover input ~ .checkmark {
+.radioContainer:hover input ~ .checkmark {
     background-color: #BDBDBD;
 }
 
 /* When the radio button is checked, add a blue background */
-.container input:checked ~ .checkmark {
+.radioContainer input:checked ~ .checkmark {
     background-color: #4CAF50;
 }
 
@@ -86,12 +105,12 @@ h1 {
 }
 
 /* Show the indicator (dot/circle) when checked */
-.container input:checked ~ .checkmark:after {
+.radioContainer input:checked ~ .checkmark:after {
     display: block;
 }
 
 /* Style the indicator (dot/circle) */
-.container .checkmark:after {
+.radioContainer .checkmark:after {
     top: 9px;
     left: 9px;
     width: 8px;
@@ -100,23 +119,6 @@ h1 {
     background: white;
 }
 
-.optionsContainer {
-    float: left;
-    width: 15%;
-    padding-top: 19%;
-}
-
-.chartContainer {
-    float: right;
-    width: 85%;
-}
-
-
-p {
-    color: #FAFAFA;
-    font-family: 'Raleway', sans-serif;
-    font-size: 22px;
-}
 
 .slidecontainer {
     display: block;
@@ -127,6 +129,12 @@ p {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+p {
+    color: #FAFAFA;
+    font-family: 'Raleway', sans-serif;
+    font-size: 22px;
 }
 
 .slider {
@@ -154,4 +162,18 @@ p {
     border-radius: 50%;
     background: #4CAF50;
     cursor: pointer;
+}
+
+.topContainer {
+    display: inline-block;
+    position: relative;
+    padding-left: 35px;
+    cursor: pointer;
+    color: #FAFAFA;
+    font-family: 'Raleway', sans-serif;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }

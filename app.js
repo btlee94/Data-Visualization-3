@@ -41,7 +41,7 @@ var svg = d3.select("#chart")
     .attr("height", height);
 
 
-d3.csv("gender.csv", function (error, data) {
+d3.csv("obesityData.csv", function (error, data) {
     var gData = data;
     var dataString = "MALE11";
 
