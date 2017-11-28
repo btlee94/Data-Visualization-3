@@ -7,67 +7,70 @@
 </head>
 <body>
     <h1>Obesity rates across states</h1>
-    
+    <div class="wrapper">
+        <div class="chartContainer" id="chart"></div>
 
-    <label class="radioContainer topContainer" id="radioGen">
-        Gender
-        <input type="radio" checked="checked" name="radioTop">
-        <span class="checkmark"></span>
-    </label>
-    <label class="radioContainer topContainer" id="radioAge">
-        Age
-        <input type="radio" name="radioTop">
-        <span class="checkmark"></span>
-    </label>
+        <div class="selectContainer">
+            <label class="radioContainer topContainer" id="radioGen">
+                Gender
+                <input type="radio" checked="checked" name="radioTop">
+                <span class="checkmark"></span>
+            </label>
+            <label class="radioContainer topContainer" id="radioAge">
+                Age
+                <input type="radio" name="radioTop">
+                <span class="checkmark"></span>
+            </label>
+        </div>
+        
 
-    <div class="chartContainer" id="chart"></div>
-
-    <div class="optionsContainer">
-        <label class="radioContainer leftContainer" id="radio1">
-            Male
-            <input type="radio" checked="checked" name="radioLeft">
-            <span class="checkmark"></span>
-        </label>
-        <label class="radioContainer leftContainer" id="radio2">
-            Female
-            <input type="radio" name="radioLeft">
-            <span class="checkmark"></span>
-        </label>
-        <label class="radioContainer leftContainer" id="radio3">
-            18 - 24
-            <input type="radio" name="radioLeft">
-            <span class="checkmark"></span>
-        </label>
-        <label class="radioContainer leftContainer" id="radio4">
-            25 - 34
-            <input type="radio" name="radioLeft">
-            <span class="checkmark"></span>
-        </label>
-        <label class="radioContainer leftContainer" id="radio5">
-            35 - 44
-            <input type="radio" name="radioLeft">
-            <span class="checkmark"></span>
-        </label>
-        <label class="radioContainer leftContainer" id="radio6">
-            45 - 54
-            <input type="radio" name="radioLeft">
-            <span class="checkmark"></span>
-        </label>
-        <label class="radioContainer leftContainer" id="radio7">
-            55 - 64
-            <input type="radio" name="radioLeft">
-            <span class="checkmark"></span>
-        </label>
-        <label class="radioContainer leftContainer" id="radio8">
-            65+
-            <input type="radio" name="radioLeft">
-            <span class="checkmark"></span>
-        </label>
+        <div class="optionsContainer">
+            <label class="radioContainer leftContainer" id="radio1">
+                Male
+                <input type="radio" checked="checked" name="radioLeft">
+                <span class="checkmark"></span>
+            </label>
+            <label class="radioContainer leftContainer" id="radio2">
+                Female
+                <input type="radio" name="radioLeft">
+                <span class="checkmark"></span>
+            </label>
+            <label class="radioContainer leftContainer" id="radio3">
+                18 - 24
+                <input type="radio" name="radioLeft">
+                <span class="checkmark"></span>
+            </label>
+            <label class="radioContainer leftContainer" id="radio4">
+                25 - 34
+                <input type="radio" name="radioLeft">
+                <span class="checkmark"></span>
+            </label>
+            <label class="radioContainer leftContainer" id="radio5">
+                35 - 44
+                <input type="radio" name="radioLeft">
+                <span class="checkmark"></span>
+            </label>
+            <label class="radioContainer leftContainer" id="radio6">
+                45 - 54
+                <input type="radio" name="radioLeft">
+                <span class="checkmark"></span>
+            </label>
+            <label class="radioContainer leftContainer" id="radio7">
+                55 - 64
+                <input type="radio" name="radioLeft">
+                <span class="checkmark"></span>
+            </label>
+            <label class="radioContainer leftContainer" id="radio8">
+                65+
+                <input type="radio" name="radioLeft">
+                <span class="checkmark"></span>
+            </label>
 
 
-        <div class="sliderContainer " id="slider">
-            <p>Year: <span id="year"></span></p>
-            <input type="range" min="2011" max="2015" value="2011" class="slider" id="yearRange">
+            <div class="sliderContainer " id="slider">
+                <p>Year: <span id="year"></span></p>
+                <input type="range" min="2011" max="2015" value="2011" class="slider" id="yearRange">
+            </div>
         </div>
     </div>
     
