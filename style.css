@@ -1,9 +1,9 @@
 ﻿body {
     background-color: #FAFAFA;
-    background: -webkit-linear-gradient(left top, #37474F, #6A1B9A); /* For Safari*/
-    background: -o-linear-gradient(bottom right, #37474F, #6A1B9A); /* For Opera*/
-    background: -moz-linear-gradient(bottom right, #37474F, #6A1B9A); /* For Firefox */
-    background: linear-gradient(to bottom right, #37474F, #6A1B9A); /* Standard syntax */
+    background: -webkit-linear-gradient(left top, #37474F, #78909C); /* For Safari*/
+    background: -o-linear-gradient(bottom right, #37474F, #78909C); /* For Opera*/
+    background: -moz-linear-gradient(bottom right, #37474F, #78909C); /* For Firefox */
+    background: linear-gradient(to bottom right, #37474F, #78909C); /* Standard syntax */
     overflow-x: hidden;
 }
 
