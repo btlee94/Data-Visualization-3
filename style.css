@@ -29,13 +29,13 @@ h1 {
 .tip {
     background: #FAFAFA;
     color: #212121;
-    font-size: 18px;
+    font-size: 14px;
     font-family: 'Raleway', sans-serif;
     display: none;
     padding: 10px;
     position: absolute;
     text-align: center;
-    width: 80px;
+    width: 120px;
     border-radius: 6px;
     z-index: 10;
 }
@@ -72,7 +72,7 @@ h1 {
 
 .topContainer {
     display: inline-block;
-    margin-left: 30%
+    margin-left: 5%
 }
 
 /* Customize the label (the container) */

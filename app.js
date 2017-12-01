@@ -108,8 +108,39 @@ d3.csv("obesityData.csv", function (error, data) {
                 return "National";
         });
 
-    sim
-        .nodes(gData)
+    var tip = d3.select("#chartContainer")
+        .data(gData)
+        .enter()
+        .append("div")
+        .attr("class", "tip");
+
+    tip.append("div")
+        .attr("class", "state");
+
+    tip.append("div")
+        .attr("class", "value");
+
+    tip.append("div")
+        .attr("class", "hint");
+
+    bubbles.on("mouseover", function (d) {
+            tip.select(".state").html(d["LocationDesc"]);
+            tip.select(".value").html("Obesity rate: " + d[dataString]);
+            tip.select(".hint")
+                .style("font-style", "italic")
+                .html("Click for more details");
+            tip.style("display", "block");
+        })
+        .on("mouseout", function (d) {
+            tip.style("display", "none");
+        })
+        .on('mousemove', function (d) {
+            tip.style('top', (d3.event.layerY - 90) + 'px')
+               .style('left', (d3.event.layerX + 10) + 'px');
+        });
+
+
+    sim.nodes(gData)
         .force("collisions", d3.forceCollide(function (d) {
             return (+d[dataString] + 11)
         }))
@@ -128,9 +159,20 @@ d3.csv("obesityData.csv", function (error, data) {
     radio6.addEventListener("click", radioUpdateString);
     radio7.addEventListener("click", radioUpdateString);
     radio8.addEventListener("click", radioUpdateString);
+    radio9.addEventListener("click", radioUpdateString);
+    radio10.addEventListener("click", radioUpdateString);
+    radio11.addEventListener("click", radioUpdateString);
+    radio12.addEventListener("click", radioUpdateString);
+    radio13.addEventListener("click", radioUpdateString);
+    radio14.addEventListener("click", radioUpdateString);
+    radio15.addEventListener("click", radioUpdateString);
+    radio16.addEventListener("click", radioUpdateString);
+    radio17.addEventListener("click", radioUpdateString);
 
     radioGen.addEventListener("click", setRadios);
     radioAge.addEventListener("click", setRadios);
+    radioInc.addEventListener("click", setRadios);
+    radioEdu.addEventListener("click", setRadios);
 
     radio3.style.display = "none";
     radio4.style.display = "none";
@@ -138,6 +180,15 @@ d3.csv("obesityData.csv", function (error, data) {
     radio6.style.display = "none";
     radio7.style.display = "none";
     radio8.style.display = "none";
+    radio9.style.display = "none";
+    radio10.style.display = "none";
+    radio11.style.display = "none";
+    radio12.style.display = "none";
+    radio13.style.display = "none";
+    radio14.style.display = "none";
+    radio15.style.display = "none";
+    radio16.style.display = "none";
+    radio17.style.display = "none";
     
 
 
@@ -151,6 +202,15 @@ d3.csv("obesityData.csv", function (error, data) {
             radio6.style.display = "none";
             radio7.style.display = "none";
             radio8.style.display = "none";
+            radio9.style.display = "none";
+            radio10.style.display = "none";
+            radio11.style.display = "none";
+            radio12.style.display = "none";
+            radio13.style.display = "none";
+            radio14.style.display = "none";
+            radio15.style.display = "none";
+            radio16.style.display = "none";
+            radio17.style.display = "none";
         }
         else if (this.id == "radioAge") {
             radio1.style.display = "none";
@@ -161,6 +221,53 @@ d3.csv("obesityData.csv", function (error, data) {
             radio6.style.display = "block";
             radio7.style.display = "block";
             radio8.style.display = "block";
+            radio9.style.display = "none";
+            radio10.style.display = "none";
+            radio11.style.display = "none";
+            radio12.style.display = "none";
+            radio13.style.display = "none";
+            radio14.style.display = "none";
+            radio15.style.display = "none";
+            radio16.style.display = "none";
+            radio17.style.display = "none";
+        }
+        else if (this.id == "radioInc") {
+            radio1.style.display = "none";
+            radio2.style.display = "none";
+            radio3.style.display = "none";
+            radio4.style.display = "none";
+            radio5.style.display = "none";
+            radio6.style.display = "none";
+            radio7.style.display = "none";
+            radio8.style.display = "none";
+            radio9.style.display = "block";
+            radio10.style.display = "block";
+            radio11.style.display = "block";
+            radio12.style.display = "block";
+            radio13.style.display = "block";
+            radio14.style.display = "block";
+            radio15.style.display = "none";
+            radio16.style.display = "none";
+            radio17.style.display = "none";
+        }
+        else if (this.id == "radioEdu") {
+            radio1.style.display = "none";
+            radio2.style.display = "none";
+            radio3.style.display = "none";
+            radio4.style.display = "none";
+            radio5.style.display = "none";
+            radio6.style.display = "none";
+            radio7.style.display = "none";
+            radio8.style.display = "none";
+            radio9.style.display = "none";
+            radio10.style.display = "none";
+            radio11.style.display = "none";
+            radio12.style.display = "none";
+            radio13.style.display = "none";
+            radio14.style.display = "none";
+            radio15.style.display = "block";
+            radio16.style.display = "block";
+            radio17.style.display = "block";
         }
         
     }
@@ -213,6 +320,24 @@ d3.csv("obesityData.csv", function (error, data) {
             dataString = "AGEYR5564-" + currYear;
         else if (this.id == "radio8")
             dataString = "AGEYR65PLUS-" + currYear;
+        else if (this.id == "radio9")
+            dataString = "INCLESS15-" + currYear;
+        else if (this.id == "radio10")
+            dataString = "INC1525-" + currYear;
+        else if (this.id == "radio11")
+            dataString = "INC2535-" + currYear;
+        else if (this.id == "radio12")
+            dataString = "INC3550-" + currYear;
+        else if (this.id == "radio13")
+            dataString = "INC5075-" + currYear;
+        else if (this.id == "radio14")
+            dataString = "INC75PLUS-" + currYear;
+        else if (this.id == "radio15")
+            dataString = "EDUHS-" + currYear;
+        else if (this.id == "radio16")
+            dataString = "EDUHSGRAD-" + currYear;
+        else if (this.id == "radio17")
+            dataString = "EDUGRAD-" + currYear;
 
         console.log(dataString);
 
