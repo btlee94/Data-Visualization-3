@@ -33,7 +33,7 @@ h1 {
     display: none;
     padding: 10px;
     position: absolute;
-    text-align: center;
+    text-align: left;
     border-radius: 6px;
     z-index: 10;
 }
@@ -51,6 +51,7 @@ h1 {
     grid-row-end: 2;
     grid-column-start: 1;
     grid-column-end: 3;
+    margin-left: 30%;
 }
 
 .optionsContainer {
@@ -58,7 +59,7 @@ h1 {
     grid-row-end: 3;
     grid-column-start: 1;
     grid-column-end: 2;
-    padding-top: 30%;
+    margin-top: 30%;
 }
 
 .leftContainer {
@@ -70,7 +71,7 @@ h1 {
 
 .topContainer {
     display: inline-block;
-    margin-left: 5%
+    margin-left: 15px;
 }
 
 /* Customize the label (the container) */

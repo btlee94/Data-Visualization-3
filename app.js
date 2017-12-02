@@ -120,26 +120,19 @@ d3.csv("obesityData.csv", function (error, data) {
     tip.append("div")
         .attr("class", "value");
     tip.append("div")
-        .attr("class", "poverty");
-    tip.append("div")
-        .attr("class", "healthy");
-    tip.append("div")
-        .attr("class", "overweight");
-    tip.append("div")
-        .attr("class", "obese");
+        .attr("class", "stats");
     tip.append("div")
         .attr("class", "cereal");
+    tip.append("div")
+        .attr("class", "cerealSugar");
     tip.append("div")
         .attr("class", "hint");
 
     bubbles.on("mouseover", function (d) {
             tip.select(".state").html(d["LocationDesc"]);
             tip.select(".value").html("Obesity rate: " + d[dataString]);
+            tip.select(".stats").html("")
             tip.select(".cereal").html("")
-            tip.select(".healthy").html("")
-            tip.select(".overweight").html("") 
-            tip.select(".obese").html("")
-            tip.select(".poverty").html("")
 
             if (d["LocationAbbr"] == "US") {
                 tip.select(".hint").html("");
@@ -164,11 +157,17 @@ d3.csv("obesityData.csv", function (error, data) {
         if (d["LocationAbbr"] == "US")
             return;
         tip.select(".value").html("");
-        tip.select(".poverty").html("Poverty rate: " + d["Poverty Rate"] + "%")
-        tip.select(".healthy").html("Healthy: " + d["Good"] + "%")
-        tip.select(".overweight").html("Overweight: " + d["Overweight"] + "%")
-        tip.select(".obese").html("Obese: " + d["Obese"] + "%")
-        tip.select(".cereal").html("Favourite cereal: " + d["FAV"])
+        tip.select(".stats").html("<br>" + "Stats" + "<br>" 
+            + "poverty rate: " + "\xa0\xa0\xa0\xa0" + d["Poverty Rate"] + "% " + "<br>"
+            + "healthy: " + "\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0" + d["Good"] + "%" + "<br>"
+            + "overweight: " + "\xa0\xa0\xa0\xa0\xa0" + d["Overweight"] + "%" + "<br>"
+            + "obese: " + "\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0" + d["Obese"] + "%");
+        tip.select(".cereal").html("<br>" + "Cereal" + "<br>"
+            + "favourite: " + "\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0" + d["FAV"] + "<br>"
+            + "serving size: " + "\xa0\xa0\xa0\xa0" + d["Serving"] + "cups" + "<br>"
+            + "calories: " + "\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0" + d["Cals"] + "<br>"
+            + "sugar: " + "\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0" + d["Sugar"] + "g" + "<br>"
+            + "fat: " + "\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0" + d["Fat"] + "g");
         tip.select(".hint").html("");
     });
 
