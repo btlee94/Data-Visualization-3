@@ -1,7 +1,7 @@
 ﻿
 var colour = ["#FF8A80", "#82B1FF", "#69F0AE", "#FFD180", "#EA80FC"];
 
-var width = screen.width * 0.70;
+var width = screen.width * 0.80;
 var height = screen.height;
 
 
@@ -14,11 +14,12 @@ var forcey = d3.forceY(function (d) {
 }).strength(0.07)
 
 var sim = d3.forceSimulation()
-  .force("xforce", forcex)
-  .force("yforce", forcey)
-  .force("collisions", d3.forceCollide(function (d) {
-      return (30)
-  }))
+    .velocityDecay(0.2)
+    .force("xforce", forcex)
+    .force("yforce", forcey)
+    .force('center', d3.forceCenter(width / 2.3, height / 2));
+
+    
 
 var slider = document.getElementById("yearRange");
 var year = document.getElementById("year");
@@ -43,23 +44,23 @@ d3.csv("obesityData.csv", function (error, data) {
      .attr("class", "bubble");
 
     bubbles.append("circle")
-       .attr("r", function (d) {
-           return +d[dataString] * 1.3;
-       })
-       .style("fill", function (d) {
-           if (d["Region"] == "WEST")
-               return colour[0];
-           if (d["Region"] == "MIDWEST")
-               return colour[1];
-           if (d["Region"] == "NE")
-               return colour[2];
-           if (d["Region"] == "SOUTH")
-               return colour[3];
-           else
-               return colour[4];
+        .attr("r", function (d) {
+            return +d[dataString] * 1.3;
+        })
+        .style("fill", function (d) {
+            if (d["Region"] == "WEST")
+                return colour[0];
+            if (d["Region"] == "MIDWEST")
+                return colour[1];
+            if (d["Region"] == "NE")
+                return colour[2];
+            if (d["Region"] == "SOUTH")
+                return colour[3];
+            else
+                return colour[4];
 
-       })
-       .style("cursor", "pointer");
+        })
+        .style("cursor", "pointer");
 
     bubbles.append("text")
         .style("fill", "#FAFAFA")
@@ -116,19 +117,39 @@ d3.csv("obesityData.csv", function (error, data) {
 
     tip.append("div")
         .attr("class", "state");
-
     tip.append("div")
         .attr("class", "value");
-
+    tip.append("div")
+        .attr("class", "poverty");
+    tip.append("div")
+        .attr("class", "healthy");
+    tip.append("div")
+        .attr("class", "overweight");
+    tip.append("div")
+        .attr("class", "obese");
+    tip.append("div")
+        .attr("class", "cereal");
     tip.append("div")
         .attr("class", "hint");
 
     bubbles.on("mouseover", function (d) {
             tip.select(".state").html(d["LocationDesc"]);
             tip.select(".value").html("Obesity rate: " + d[dataString]);
-            tip.select(".hint")
-                .style("font-style", "italic")
-                .html("Click for more details");
+            tip.select(".cereal").html("")
+            tip.select(".healthy").html("")
+            tip.select(".overweight").html("") 
+            tip.select(".obese").html("")
+            tip.select(".poverty").html("")
+
+            if (d["LocationAbbr"] == "US") {
+                tip.select(".hint").html("");
+            }
+            else {
+                tip.select(".hint")
+                    .style("font-style", "italic")
+                    .html("Click for state details");
+            }
+            
             tip.style("display", "block");
         })
         .on("mouseout", function (d) {
@@ -139,10 +160,23 @@ d3.csv("obesityData.csv", function (error, data) {
                .style('left', (d3.event.layerX + 10) + 'px');
         });
 
+    bubbles.on("click", function (d) {
+        if (d["LocationAbbr"] == "US")
+            return;
+        tip.select(".value").html("");
+        tip.select(".poverty").html("Poverty rate: " + d["Poverty Rate"] + "%")
+        tip.select(".healthy").html("Healthy: " + d["Good"] + "%")
+        tip.select(".overweight").html("Overweight: " + d["Overweight"] + "%")
+        tip.select(".obese").html("Obese: " + d["Obese"] + "%")
+        tip.select(".cereal").html("Favourite cereal: " + d["FAV"])
+        tip.select(".hint").html("");
+    });
+
 
     sim.nodes(gData)
-        .force("collisions", d3.forceCollide(function (d) {
-            return (+d[dataString] + 11)
+        .force('charge', d3.forceManyBody().strength(function (d) {
+            return -0.2 * Math.pow(+d[dataString], 2.0);
+
         }))
         .on('tick', updatePosition)
 
@@ -339,8 +373,6 @@ d3.csv("obesityData.csv", function (error, data) {
         else if (this.id == "radio17")
             dataString = "EDUGRAD-" + currYear;
 
-        console.log(dataString);
-
         updateBubbles();
     }
 
@@ -352,11 +384,12 @@ d3.csv("obesityData.csv", function (error, data) {
             .attr("r", function (d) {
                 return +d[dataString] * 1.3;
             });
-        sim
-        .force("collisions", d3.forceCollide(function (d) {
-            return (+d[dataString] + 11)
-        }))
-        .alpha(0.01)
+
+        sim.force('charge', d3.forceManyBody().strength(function (d) {
+                return -0.2 * Math.pow(+d[dataString], 2.0);
+
+            }))
+        .alpha(0.1)
         .restart();
     }
 

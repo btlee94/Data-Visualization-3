@@ -4,7 +4,6 @@
     background: -o-linear-gradient(bottom right, #37474F, #78909C); /* For Opera*/
     background: -moz-linear-gradient(bottom right, #37474F, #78909C); /* For Firefox */
     background: linear-gradient(to bottom right, #37474F, #78909C); /* Standard syntax */
-    overflow-x: hidden;
 }
 
 .wrapper{
@@ -35,7 +34,6 @@ h1 {
     padding: 10px;
     position: absolute;
     text-align: center;
-    width: 120px;
     border-radius: 6px;
     z-index: 10;
 }
