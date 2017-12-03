@@ -35,7 +35,7 @@ var svg = d3.select("#chart")
 
 d3.csv("obesityData.csv", function (error, data) {
     var gData = data;
-    var dataString = "MALE11";
+    var dataString = "Obese";
 
     var bubbles = svg.selectAll("bubbles")
      .data(gData)
@@ -202,11 +202,14 @@ d3.csv("obesityData.csv", function (error, data) {
     radio16.addEventListener("click", radioUpdateString);
     radio17.addEventListener("click", radioUpdateString);
 
+    radioAll.addEventListener("click", setOverall);
     radioGen.addEventListener("click", setRadios);
     radioAge.addEventListener("click", setRadios);
     radioInc.addEventListener("click", setRadios);
     radioEdu.addEventListener("click", setRadios);
 
+    radio1.style.display = "none";
+    radio2.style.display = "none";
     radio3.style.display = "none";
     radio4.style.display = "none";
     radio5.style.display = "none";
@@ -222,8 +225,34 @@ d3.csv("obesityData.csv", function (error, data) {
     radio15.style.display = "none";
     radio16.style.display = "none";
     radio17.style.display = "none";
+    slider.style.display = "none";
+    yearLabel.style.display = "none";
     
+    function setOverall() {
+        radio1.style.display = "none";
+        radio2.style.display = "none";
+        radio3.style.display = "none";
+        radio4.style.display = "none";
+        radio5.style.display = "none";
+        radio6.style.display = "none";
+        radio7.style.display = "none";
+        radio8.style.display = "none";
+        radio9.style.display = "none";
+        radio10.style.display = "none";
+        radio11.style.display = "none";
+        radio12.style.display = "none";
+        radio13.style.display = "none";
+        radio14.style.display = "none";
+        radio15.style.display = "none";
+        radio16.style.display = "none";
+        radio17.style.display = "none";
+        slider.style.display = "none";
+        yearLabel.style.display = "none";
 
+        dataString = "Obese";
+        updateBubbles();
+
+    }
 
     function setRadios() {
         if (this.id == "radioGen") {
@@ -244,6 +273,8 @@ d3.csv("obesityData.csv", function (error, data) {
             radio15.style.display = "none";
             radio16.style.display = "none";
             radio17.style.display = "none";
+            slider.style.display = "block";
+            yearLabel.style.display = "block";
         }
         else if (this.id == "radioAge") {
             radio1.style.display = "none";
@@ -263,6 +294,8 @@ d3.csv("obesityData.csv", function (error, data) {
             radio15.style.display = "none";
             radio16.style.display = "none";
             radio17.style.display = "none";
+            slider.style.display = "block";
+            yearLabel.style.display = "block";
         }
         else if (this.id == "radioInc") {
             radio1.style.display = "none";
@@ -282,6 +315,8 @@ d3.csv("obesityData.csv", function (error, data) {
             radio15.style.display = "none";
             radio16.style.display = "none";
             radio17.style.display = "none";
+            slider.style.display = "block";
+            yearLabel.style.display = "block";
         }
         else if (this.id == "radioEdu") {
             radio1.style.display = "none";
@@ -301,6 +336,8 @@ d3.csv("obesityData.csv", function (error, data) {
             radio15.style.display = "block";
             radio16.style.display = "block";
             radio17.style.display = "block";
+            slider.style.display = "block";
+            yearLabel.style.display = "block";
         }
         
     }
@@ -391,9 +428,6 @@ d3.csv("obesityData.csv", function (error, data) {
         .alpha(0.1)
         .restart();
     }
-
-
-    
 
 })
 

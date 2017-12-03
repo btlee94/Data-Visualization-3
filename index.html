@@ -11,9 +11,14 @@
         <div class="chartContainer" id="chart"></div>
 
         <div class="selectContainer">
+            <label class="radioContainer topContainer" id="radioAll">
+                Overall
+                <input type="radio" checked="checked" name="radioTop">
+                <span class="checkmark"></span>
+            </label>
             <label class="radioContainer topContainer" id="radioGen">
                 Gender
-                <input type="radio" checked="checked" name="radioTop">
+                <input type="radio" name="radioTop">
                 <span class="checkmark"></span>
             </label>
             <label class="radioContainer topContainer" id="radioAge">
@@ -123,7 +128,7 @@
 
 
             <div class="sliderContainer " id="slider">
-                <p>Year: <span id="year"></span></p>
+                <p id="yearLabel">Year: <span id="year"></span></p>
                 <input type="range" min="2011" max="2015" value="2011" class="slider" id="yearRange">
             </div>
         </div>
